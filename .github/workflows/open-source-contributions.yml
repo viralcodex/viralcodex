@@ -1,0 +1,39 @@
+name: Update External PRs in README
+
+on:
+  schedule:
+    - cron: "30 18 * * *"   # Runs every day at 18:30 UTC = 00:00 IST
+  workflow_dispatch:        # allows manual runs
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Fetch external PRs via GitHub API
+        run: |
+          echo "Fetching PRs for viralcodex..."
+          prs=$(curl -s "https://api.github.com/search/issues?q=is:pr+author:viralcodex" \
+            | jq -r '.items[] | select(.repository_url | contains("viralcodex") | not) | "- [" + .title + "](" + .html_url + ") in [" + (.repository_url | split("/")[-1]) + "]" ' | head -n 10)
+          
+          if [ -z "$prs" ]; then
+            prs="- No recent external PRs found."
+          fi
+
+          # Update README.md between the markers
+          awk -v content="$prs" '
+            BEGIN { start=0 }
+            /<!--START_SECTION:external_prs-->/ { print; print content; start=1; next }
+            /<!--END_SECTION:external_prs-->/ { start=0 }
+            !start
+          ' README.md > README.tmp && mv README.tmp README.md
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "update: external PRs list"
+          git push
