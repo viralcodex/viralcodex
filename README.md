@@ -6,7 +6,7 @@
 <!--START_SECTION:external_prs-->
 [
   "| Title | Repository | Status |",
-  "|-------|-------------|--------|"
+  "|:-------:|:-------------:|:--------:|"
 ]
 | [Upload Button SVG position changes](https://github.com/Davis-Media/quick-svg-bg/pull/6) | `Davis-Media/quick-svg-bg` | open |
 | [Add rotation control for SVG image display](https://github.com/Davis-Media/quick-svg-bg/pull/4) | `Davis-Media/quick-svg-bg` | merged |
