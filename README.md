@@ -3,5 +3,4 @@
  - Starting out to contribute in multiple open-source projects.
 
 ## My Open Source Contributions (this is for me to feel motivated)
-<!--START_SECTION:external_prs-->
-<!--END_SECTION:external_prs-->
+<!--START_SECTION:external_prs--><!--END_SECTION:external_prs-->
