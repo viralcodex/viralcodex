@@ -50,7 +50,7 @@ async function fetchPullRequests() {
       return 2; //closed
     }
 
-    returb getPriority(a) - getPriority(b);
+    return getPriority(a) - getPriority(b);
   })
 
   return results.slice(0, MAX_PRS).map((pr) => ({
