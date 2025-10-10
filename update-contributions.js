@@ -1,5 +1,5 @@
 import fs from "fs";
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+import fetch from 'node-fetch';
 
 const USERNAME = "viralcodex";
 const README_PATH = "./README.md";
