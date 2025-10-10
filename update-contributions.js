@@ -58,7 +58,7 @@ async function fetchPullRequests() {
     url: pr.html_url,
     repo: pr.repository_url.split("/").slice(-1)[0],
     state: pr.state,
-  }));
+  })).filter((pr) => return !pr.repo.includes("SharedSolutions"));
 }
 
 function generateTable(prs) {
@@ -68,7 +68,7 @@ function generateTable(prs) {
   const rows = prs
     .map(
       (pr) =>
-        `| [${pr.repo}](https://github.com/${pr.repo}) | [${pr.title}](${pr.url}) | ${pr.state === "open" ? "🟢 Open" : "🔵 Merged"} |`
+        `| [${pr.repo}](https://github.com/${pr.repo}) | [${pr.title}](${pr.url}) | ${pr.state === "open" ? "🟢Open" : "🔵Merged"} |`
     ).join("\n");
 
   return `${header}\n${rows}`;
