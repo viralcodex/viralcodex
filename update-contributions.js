@@ -3,8 +3,8 @@ import fetch from 'node-fetch';
 
 const USERNAME = "viralcodex";
 const README_PATH = "./README.md";
-const PR_SECTION_START = "<!-- PR_LIST_START -->";
-const PR_SECTION_END = "<!-- PR_LIST_END -->";
+const PR_SECTION_START = "<!--START_SECTION:external_prs-->";
+const PR_SECTION_END = "<!--END_SECTION:external_prs-->";
 const MAX_PRS = 10; // Number of latest PRs to show
 
 async function fetchPullRequests() {
