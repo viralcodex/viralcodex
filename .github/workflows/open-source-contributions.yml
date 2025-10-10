@@ -1,57 +1,35 @@
-name: Update External PRs in README
+name: Update PR list in README
 
 on:
   schedule:
-    - cron: "30 18 * * *"  # Runs every day at 18:30 UTC = 00:00 IST
-  workflow_dispatch:        # Allows manual trigger from Actions tab
+    - cron: '0 0 * * *'   # Every day at midnight UTC
+  workflow_dispatch:       # Allows manual trigger from Actions tab
 
 jobs:
-  update-readme:
+  update-prs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write        # Required to push README changes
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Fetch external PRs via GitHub API and update README
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install node-fetch@3
+
+      - name: Run update script
+        run: node update_prs.js
+
+      - name: Commit and push changes
         run: |
-          echo "Fetching PRs for viralcodex..."
-
-          prs=$(curl -s "https://api.github.com/search/issues?q=is:pr+author:viralcodex" \
-            | jq -r '
-              `| Title | Repository | Status |, |:-------:|:-------------:|:--------:`,
-              (.items[]
-                | select(.repository_url | contains("viralcodex") | not)
-                | "| [" + .title + "](" + .html_url + ") | `"
-                  + ((.repository_url | split("/")[-2]) + "/" + (.repository_url | split("/")[-1])) + "` | "
-                  + (if .state == "closed" then
-                        (if (.pull_request.merged_at != null) then "merged" else "closed" end)
-                     else
-                        "open"
-                     end)
-                  + " |"
-              )
-            ' | head -n 12)
-
-          if [ -z "$prs" ]; then
-            prs="| Title | Repository | Status |
-                 |-------|-------------|--------|
-                 | No recent external PRs found. | - | - |"
-          fi
-
-          echo "Updating README..."
-
-          awk -v content="$prs" '
-            BEGIN { start=0 }
-            /<!--START_SECTION:external_prs-->/ { print; print content; start=1; next }
-            /<!--END_SECTION:external_prs-->/ { start=0 }
-            !start
-          ' README.md > README.tmp && mv README.tmp README.md
-
-      - name: Commit and push changes if any
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add README.md
-          git diff --cached --quiet || git commit -m "update: external PRs list"
+          git commit -m "chore: update PR list [skip ci]" || echo "No changes to commit"
           git push
