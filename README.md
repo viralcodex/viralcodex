@@ -1,10 +1,9 @@
-## Hi, I am Aviral, currently a SWE at SAP Labs.
+## Hi, I am Aviral, just another developer.
  - Currently building GitVulSafe, a dependency vulnerabilities analyser.
- - Starting out to contribute in multiple open-source projects.
+ - Contributing in multiple open-source projects.
 
-## My Open Source Contributions
+## My Open Source Contributions (Keeping track for myself)
 <!--START_SECTION:external_prs-->
-
 | Repository | Title | Status |
 |-------------|--------|---------------|
 | [quick-svg-bg](https://github.com/quick-svg-bg) | [Add rotation control for SVG image display](https://github.com/Davis-Media/quick-svg-bg/pull/4) | `Merged` |
