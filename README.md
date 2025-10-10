@@ -4,7 +4,4 @@
 
 ## My Open Source Contributions (this is for me to feel motivated)
 <!--START_SECTION:external_prs-->
-| Title | Repository | Status |
-       |-------|-------------|--------|
-       | No recent external PRs found. | - | - |
 <!--END_SECTION:external_prs-->
