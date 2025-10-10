@@ -42,6 +42,17 @@ async function fetchPullRequests() {
     page++;
   }
 
+  //sort based on status, merged go first then open then closed
+  results.sort((a, b) => {
+    const getPriority = (pr) => {
+      if(pr.state === 'closed' && pr.pull_request?.merged_at) return 0; //merged
+      else if(pr.state === 'open') return 1; //open
+      return 2; //closed
+    }
+
+    returb getPriority(a) - getPriority(b);
+  })
+
   return results.slice(0, MAX_PRS).map((pr) => ({
     title: pr.title,
     url: pr.html_url,
@@ -53,12 +64,12 @@ async function fetchPullRequests() {
 function generateTable(prs) {
   if (!prs.length) return "No recent PRs found.";
 
-  const header = "| Repository | Title | Status |\n|-------------|--------|---------|";
+  const header = "| Repository | Title | Status |\n|-------------|--------|---------------|";
   const rows = prs
     .map(
       (pr) =>
         `| [${pr.repo}](https://github.com/${pr.repo}) | [${pr.title}](${pr.url}) | ${pr.state === "open" ? "🟢 Open" : "🔵 Merged"} |`
-    )
+    ).
     .join("\n");
 
   return `${header}\n${rows}`;
