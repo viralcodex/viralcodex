@@ -24,7 +24,7 @@ jobs:
         run: npm install node-fetch@3
 
       - name: Run update script
-        run: node update_prs.js
+        run: node update-contributions.js
 
       - name: Commit and push changes
         run: |
