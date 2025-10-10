@@ -58,7 +58,7 @@ async function fetchPullRequests() {
     url: pr.html_url,
     repo: pr.repository_url.split("/").slice(-1)[0],
     state: pr.state,
-  })).filter((pr) => return !pr.repo.includes("SharedSolutions"));
+  })).filter((pr) => !pr.repo.includes("SharedSolutions"));
 }
 
 function generateTable(prs) {
