@@ -2,56 +2,56 @@ name: Update External PRs in README
 
 on:
   schedule:
-    - cron: "30 18 * * *"  # Runs daily at 00:00 IST
-  workflow_dispatch:
+    - cron: "30 18 * * *"  # Runs every day at 18:30 UTC = 00:00 IST
+  workflow_dispatch:        # Allows manual trigger from Actions tab
 
 jobs:
   update-readme:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Fetch external PRs via GitHub API and update README
         run: |
-          echo "Fetching latest external PRs for viralcodex..."
-          
-          # Fetch latest PRs authored by viralcodex
-          data=$(curl -s "https://api.github.com/search/issues?q=is:pr+author:viralcodex&sort=created&order=desc&per_page=20")
+          echo "Fetching PRs for viralcodex..."
 
-          # Build Markdown table header
-          table="| Repository | Title | Status |\n|-------------|--------|---------|"
+          prs=$(curl -s "https://api.github.com/search/issues?q=is:pr+author:viralcodex" \
+            | jq -r '
+              ["| Title | Repository | Status |", "|-------|-------------|--------|"],
+              (.items[]
+                | select(.repository_url | contains("viralcodex") | not)
+                | "| [" + .title + "](" + .html_url + ") | `"
+                  + ((.repository_url | split("/")[-2]) + "/" + (.repository_url | split("/")[-1])) + "` | "
+                  + (if .state == "closed" then
+                        (if (.pull_request.merged_at != null) then "merged" else "closed" end)
+                     else
+                        "open"
+                     end)
+                  + " |"
+              )
+            ' | head -n 12)
 
-          # Extract and append rows for PRs not belonging to viralcodex
-          echo "$data" | jq -r '
-            .items[]
-            | select(.repository_url | contains("viralcodex") | not)
-            | "| [" + (.repository_url | split("/")[-1]) + "](https://github.com/" + (.repository_url | split("/")[-2] + "/" + .repository_url | split("/")[-1]) + ")"
-              + " | [" + (.title | gsub("\\|"; "/")) + "](" + .html_url + ")"
-              + " | " + if .state == "open" then "🟢 Open" else (if .pull_request.merged_at then "🟣 Merged" else "🔴 Closed" end) end + " |"
-          ' | head -n 10 >> table.md
-
-          # If no external PRs found, set a placeholder
-          if [ ! -s table.md ]; then
-            echo "| – | No recent external PRs found | – |" > table.md
+          if [ -z "$prs" ]; then
+            prs="| Title | Repository | Status |
+                 |-------|-------------|--------|
+                 | No recent external PRs found. | - | - |"
           fi
 
-          # Merge header and table
-          echo -e "$table\n$(cat table.md)" > pr_table.md
-          rm -f table.md
+          echo "Updating README..."
 
-          # Replace section in README.md
-          awk -v content="$(cat pr_table.md)" '
+          awk -v content="$prs" '
             BEGIN { start=0 }
             /<!--START_SECTION:external_prs-->/ { print; print content; start=1; next }
             /<!--END_SECTION:external_prs-->/ { start=0 }
             !start
           ' README.md > README.tmp && mv README.tmp README.md
 
-      - name: Commit and push if changed
+      - name: Commit and push changes if any
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git diff --cached --quiet || git commit -m "update: external PRs table"
+          git diff --cached --quiet || git commit -m "update: external PRs list"
           git push
