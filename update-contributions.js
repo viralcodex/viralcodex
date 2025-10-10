@@ -68,7 +68,7 @@ function generateTable(prs) {
   const rows = prs
     .map(
       (pr) =>
-        `| [${pr.repo}](https://github.com/${pr.repo}) | [${pr.title}](${pr.url}) | ${pr.state === "open" ? "🟢Open" : "🔵Merged"} |`
+        `| [${pr.repo}](https://github.com/${pr.repo}) | [${pr.title}](${pr.url}) | ${pr.state === "open" ? "`Open`" : "`Merged`"} |`
     ).join("\n");
 
   return `${header}\n${rows}`;
