@@ -56,7 +56,7 @@ async function fetchPullRequests() {
   return results.slice(0, MAX_PRS).map((pr) => ({
     title: pr.title,
     url: pr.html_url,
-    repo: pr.repository_url,
+    repo: pr.repository_url.replace("api.github.com", "github.com"),
     state: pr.state,
   })).filter((pr) => !pr.repo.includes("SharedSolutions"));
 }
