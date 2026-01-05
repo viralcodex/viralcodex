@@ -1,5 +1,5 @@
 ## Hi, I am Aviral, just another developer.
- - Currently building GitVulSafe, a dependency vulnerabilities analyser.
+ - Currently building GitDepSec, a dependency vulnerabilities analyser.
  - Contributing in multiple open-source projects.
 
 ## My Open Source Contributions (Keeping track for myself)
