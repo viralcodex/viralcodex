@@ -7,6 +7,8 @@
 
 | Repository | Title | Status |
 |-------------|--------|---------------|
+| [My-Portfolio](https://github.com/Srijani-Chakroborty/My-Portfolio) | [Add lucide-react dependency to package.json and bun.lock](https://github.com/Srijani-Chakroborty/My-Portfolio/pull/6) | `Merged` |
+| [My-Portfolio](https://github.com/Srijani-Chakroborty/My-Portfolio) | [Refactor components and styles for improved readability and consistency](https://github.com/Srijani-Chakroborty/My-Portfolio/pull/5) | `Merged` |
 | [My-Portfolio](https://github.com/Srijani-Chakroborty/My-Portfolio) | [UI changes](https://github.com/Srijani-Chakroborty/My-Portfolio/pull/4) | `Merged` |
 | [My-Portfolio](https://github.com/Srijani-Chakroborty/My-Portfolio) | [Switch to Bun, update README and dependencies](https://github.com/Srijani-Chakroborty/My-Portfolio/pull/3) | `Merged` |
 | [f1-race-replay](https://github.com/IAmTomShaw/f1-race-replay) | [Added F1 styled Qualifying Sector wise lap time with tyre info and delta time](https://github.com/IAmTomShaw/f1-race-replay/pull/117) | `Merged` |
@@ -17,7 +19,5 @@
 | [svgo](https://github.com/svg/svgo) | [Updated plugin descriptions and added logic to set preset to the plugin description.](https://github.com/svg/svgo/pull/2174) | `Merged` |
 | [opencode](https://github.com/anomalyco/opencode) | [fix(cli): Use anchor tag for Zen API key link in dialog](https://github.com/anomalyco/opencode/pull/10881) | `Open` |
 | [lucide](https://github.com/lucide-icons/lucide) | [feat(icons): added `square-alert` Icon](https://github.com/lucide-icons/lucide/pull/3687) | `Open` |
-| [quick-svg-bg](https://github.com/davis7dotsh/quick-svg-bg) | [Upload Button SVG position changes](https://github.com/davis7dotsh/quick-svg-bg/pull/6) | `Open` |
-| [svgo](https://github.com/svg/svgo) | [Handle transparent colors in removeUselessStrokeAndFill](https://github.com/svg/svgo/pull/2173) | `Open` |
 
 <!--END_SECTION:external_prs-->
