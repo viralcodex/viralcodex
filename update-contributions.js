@@ -58,7 +58,7 @@ async function fetchPullRequests() {
     url: pr.html_url,
     repo: pr.repository_url.replace("api.github.com/repos", "github.com"),
     state: pr.state,
-  })).filter((pr) => !pr.repo.includes("SharedSolutions", "My-Portfolio"));
+  })).filter((pr) => !["SharedSolutions", "My-Portfolio"].includes(pr.repo));
 }
 
 function generateTable(prs) {
