@@ -7,11 +7,11 @@
 
 | Repository | Title | Status |
 |------------|-------|--------|
+| [opentui](https://github.com/anomalyco/opentui) | [Add marginX/marginY and paddingX/paddingY to the style attributes](https://github.com/anomalyco/opentui/pull/619) | `open` |
 | [opencode](https://github.com/anomalyco/opencode) | [fix(cli): Use anchor tag for Zen API key link in dialog](https://github.com/anomalyco/opencode/pull/10881) | `open` |
 | [lucide](https://github.com/lucide-icons/lucide) | [feat(icons): added `square-alert` Icon](https://github.com/lucide-icons/lucide/pull/3687) | `open` |
 | [svgo](https://github.com/svg/svgo) | [Handle transparent colors in removeUselessStrokeAndFill](https://github.com/svg/svgo/pull/2173) | `open` |
 | [quick-svg-bg](https://github.com/davis7dotsh/quick-svg-bg) | [Upload Button SVG position changes](https://github.com/davis7dotsh/quick-svg-bg/pull/6) | `open` |
-| [gitdiagram](https://github.com/ahmedkhaleel2004/gitdiagram) | [Added UI support for branch selection and mermaid prompt fixes](https://github.com/ahmedkhaleel2004/gitdiagram/pull/116) | `open` |
 | [gitdiagram](https://github.com/ahmedkhaleel2004/gitdiagram) | [Fix to prevent low-res image download when exporting](https://github.com/ahmedkhaleel2004/gitdiagram/pull/130) | `open` |
 | [gitdiagram](https://github.com/ahmedkhaleel2004/gitdiagram) | [Dark mode support for the application](https://github.com/ahmedkhaleel2004/gitdiagram/pull/117) | `open` |
 | [f1-race-replay](https://github.com/IAmTomShaw/f1-race-replay) | [Added F1 styled Qualifying Sector wise lap time with tyre info and delta time](https://github.com/IAmTomShaw/f1-race-replay/pull/117) | `closed` |
