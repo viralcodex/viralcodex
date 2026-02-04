@@ -7,8 +7,8 @@
 
 | Repository | Title | Status |
 |------------|-------|--------|
-| [opentui](https://github.com/anomalyco/opentui) | [Add marginX/marginY and paddingX/paddingY to the style attributes](https://github.com/anomalyco/opentui/pull/619) | `open` |
 | [opencode](https://github.com/anomalyco/opencode) | [fix(cli): Use anchor tag for Zen API key link in dialog](https://github.com/anomalyco/opencode/pull/10881) | `open` |
+| [opentui](https://github.com/anomalyco/opentui) | [Add marginX/marginY and paddingX/paddingY to the style attributes](https://github.com/anomalyco/opentui/pull/619) | `open` |
 | [lucide](https://github.com/lucide-icons/lucide) | [feat(icons): added `square-alert` Icon](https://github.com/lucide-icons/lucide/pull/3687) | `open` |
 | [svgo](https://github.com/svg/svgo) | [Handle transparent colors in removeUselessStrokeAndFill](https://github.com/svg/svgo/pull/2173) | `open` |
 | [quick-svg-bg](https://github.com/davis7dotsh/quick-svg-bg) | [Upload Button SVG position changes](https://github.com/davis7dotsh/quick-svg-bg/pull/6) | `open` |
