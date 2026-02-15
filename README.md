@@ -14,8 +14,8 @@
 | [f1-race-replay](https://github.com/IAmTomShaw/f1-race-replay) | [Add race playback controls with UI buttons](https://github.com/IAmTomShaw/f1-race-replay/pull/74) | `Merged` |
 | [svgo](https://github.com/svg/svgo) | [Updated plugin descriptions and added logic to set preset to the plugin description.](https://github.com/svg/svgo/pull/2174) | `Merged` |
 | [quick-svg-bg](https://github.com/davis7dotsh/quick-svg-bg) | [Add rotation control for SVG image display](https://github.com/davis7dotsh/quick-svg-bg/pull/4) | `Merged` |
-| [opentui](https://github.com/anomalyco/opentui) | [feat: Added HoverCursorStyle to APIs using OSC 22](https://github.com/anomalyco/opentui/pull/676) | `Open` |
 | [opencode](https://github.com/anomalyco/opencode) | [fix(cli): Use anchor tag for Zen API key link in dialog](https://github.com/anomalyco/opencode/pull/10881) | `Open` |
+| [opentui](https://github.com/anomalyco/opentui) | [feat: Added HoverCursorStyle to APIs using OSC 22](https://github.com/anomalyco/opentui/pull/676) | `Open` |
 | [gitdiagram](https://github.com/ahmedkhaleel2004/gitdiagram) | [Fix to prevent low-res image download when exporting](https://github.com/ahmedkhaleel2004/gitdiagram/pull/130) | `Open` |
 | [lucide](https://github.com/lucide-icons/lucide) | [feat(icons): added `square-alert` Icon](https://github.com/lucide-icons/lucide/pull/3687) | `Open` |
 | [svgo](https://github.com/svg/svgo) | [Handle transparent colors in removeUselessStrokeAndFill](https://github.com/svg/svgo/pull/2173) | `Open` |
