@@ -16,9 +16,9 @@
 | [f1-race-replay](https://github.com/IAmTomShaw/f1-race-replay) | [Add race playback controls with UI buttons](https://github.com/IAmTomShaw/f1-race-replay/pull/74) | `Merged` |
 | [svgo](https://github.com/svg/svgo) | [Updated plugin descriptions and added logic to set preset to the plugin description.](https://github.com/svg/svgo/pull/2174) | `Merged` |
 | [quick-svg-bg](https://github.com/davis7dotsh/quick-svg-bg) | [Add rotation control for SVG image display](https://github.com/davis7dotsh/quick-svg-bg/pull/4) | `Merged` |
+| [opentui](https://github.com/anomalyco/opentui) | [feat(web/styles): add custom scrollbar styles for better visibility](https://github.com/anomalyco/opentui/pull/699) | `Open` |
 | [opencode](https://github.com/anomalyco/opencode) | [fix(cli): Use anchor tag for Zen API key link in dialog](https://github.com/anomalyco/opencode/pull/10881) | `Open` |
 | [lucide](https://github.com/lucide-icons/lucide) | [feat(icons): added `square-alert` Icon](https://github.com/lucide-icons/lucide/pull/3687) | `Open` |
-| [svgo](https://github.com/svg/svgo) | [Handle transparent colors in removeUselessStrokeAndFill](https://github.com/svg/svgo/pull/2173) | `Open` |
 | [quick-svg-bg](https://github.com/davis7dotsh/quick-svg-bg) | [Upload Button SVG position changes](https://github.com/davis7dotsh/quick-svg-bg/pull/6) | `Open` |
 | [f1-race-replay](https://github.com/IAmTomShaw/f1-race-replay) | [Add driver full names and qualifying lap time UI](https://github.com/IAmTomShaw/f1-race-replay/pull/135) | `Closed` |
 | [svgo](https://github.com/svg/svgo) | [Add --hide-unchanged option to hide unchanged SVGs](https://github.com/svg/svgo/pull/2180) | `Closed` |
