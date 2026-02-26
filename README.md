@@ -17,10 +17,10 @@
 | [f1-race-replay](https://github.com/IAmTomShaw/f1-race-replay) | [Add finish line drawing to race replay UI](https://github.com/IAmTomShaw/f1-race-replay/pull/94) | `Merged` |
 | [f1-race-replay](https://github.com/IAmTomShaw/f1-race-replay) | [Add DRS zone visualization to race and qualifying replays](https://github.com/IAmTomShaw/f1-race-replay/pull/68) | `Merged` |
 | [f1-race-replay](https://github.com/IAmTomShaw/f1-race-replay) | [Add race playback controls with UI buttons](https://github.com/IAmTomShaw/f1-race-replay/pull/74) | `Merged` |
-| [fastergh](https://github.com/RhysSullivan/fastergh) | [Added Github Label colors for components across the app](https://github.com/RhysSullivan/fastergh/pull/11) | `Open` |
+| [opentui](https://github.com/anomalyco/opentui) | [feat(DiffRenderable): synchronize scroll between split view panes in diff.ts](https://github.com/anomalyco/opentui/pull/742) | `Open` |
 | [opencode](https://github.com/anomalyco/opencode) | [fix(cli): Use anchor tag for Zen API key link in dialog](https://github.com/anomalyco/opencode/pull/10881) | `Open` |
+| [fastergh](https://github.com/RhysSullivan/fastergh) | [Added Github Label colors for components across the app](https://github.com/RhysSullivan/fastergh/pull/11) | `Open` |
 | [fastergh](https://github.com/RhysSullivan/fastergh) | [Wrap Titles to not make them cutoff from the view in the column](https://github.com/RhysSullivan/fastergh/pull/6) | `Closed` |
 | [f1-race-replay](https://github.com/IAmTomShaw/f1-race-replay) | [Add driver full names and qualifying lap time UI](https://github.com/IAmTomShaw/f1-race-replay/pull/135) | `Closed` |
-| [svgo](https://github.com/svg/svgo) | [Add --hide-unchanged option to hide unchanged SVGs](https://github.com/svg/svgo/pull/2180) | `Closed` |
 
 <!--END_SECTION:external_prs-->
