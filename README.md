@@ -18,8 +18,8 @@
 | [opentui](https://github.com/anomalyco/opentui) | [feat: Added HoverCursorStyle to APIs using OSC 22](https://github.com/anomalyco/opentui/pull/676) | `Merged` |
 | [opentui](https://github.com/anomalyco/opentui) | [Add marginX/marginY and paddingX/paddingY to the style attributes](https://github.com/anomalyco/opentui/pull/619) | `Merged` |
 | [f1-race-replay](https://github.com/IAmTomShaw/f1-race-replay) | [Added F1 styled Qualifying Sector wise lap time with tyre info and delta time](https://github.com/IAmTomShaw/f1-race-replay/pull/117) | `Merged` |
-| [opencode](https://github.com/anomalyco/opencode) | [fix(cli): Use anchor tag for Zen API key link in dialog](https://github.com/anomalyco/opencode/pull/10881) | `Open` |
 | [fastergh](https://github.com/RhysSullivan/fastergh) | [Added Github Label colors for components across the app](https://github.com/RhysSullivan/fastergh/pull/11) | `Open` |
+| [opencode](https://github.com/anomalyco/opencode) | [fix(cli): Use anchor tag for Zen API key link in dialog](https://github.com/anomalyco/opencode/pull/10881) | `Closed` |
 | [fastergh](https://github.com/RhysSullivan/fastergh) | [Wrap Titles to not make them cutoff from the view in the column](https://github.com/RhysSullivan/fastergh/pull/6) | `Closed` |
 | [f1-race-replay](https://github.com/IAmTomShaw/f1-race-replay) | [Add driver full names and qualifying lap time UI](https://github.com/IAmTomShaw/f1-race-replay/pull/135) | `Closed` |
 
