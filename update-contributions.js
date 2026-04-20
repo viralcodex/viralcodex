@@ -1,9 +1,9 @@
 import fs from "fs/promises";
 import fetch from "node-fetch";
 
-const USERNAME = process.env.GITHUB_USERNAME || "viralcodex";
-const README_PATH = process.env.README_PATH || "./README.md";
-const MAX_PRS = Number(process.env.MAX_PRS || 15);
+const USERNAME = "viralcodex";
+const README_PATH = "./README.md";
+const MAX_PRS = 15;
 
 const PR_SECTION_START = "<!--START_SECTION:external_prs-->";
 const PR_SECTION_END = "<!--END_SECTION:external_prs-->";
@@ -69,7 +69,7 @@ async function fetchPullRequests() {
       if (details.merged_at) {
         status = "Merged";
       } else if (details.state === "closed") {
-        status = "Closed";
+        continue;
       } else {
         status = "Open";
       }
