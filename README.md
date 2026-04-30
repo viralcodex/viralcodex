@@ -1,7 +1,3 @@
-## Hi, I am Aviral, just another developer.
- - Currently building GitDepSec, a dependency vulnerabilities analyser.
- - Contributing in multiple open-source projects.
-
 ## My Open Source Contributions (Yet)
 <!--START_SECTION:external_prs-->
 
