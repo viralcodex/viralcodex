@@ -1,7 +1,6 @@
-## My Open Source Contributions (Yet)
+## My Open Source Contributions
 <!--START_SECTION:external_prs-->
-
-Scroll horizontally to read the merged PR timeline from left to right.
+I keep it to see how far I have come as a contributor
 
 <pre>
         <a href="https://github.com/svg/svgo/pull/2174">svgo#2174</a>             <small>Dec 18, 2025</small>          <a href="https://github.com/IAmTomShaw/f1-race-replay/pull/74">f1-race-replay#74</a>         <small>Jan 11, 2026</small>         <a href="https://github.com/IAmTomShaw/f1-race-replay/pull/117">f1-race-replay#117</a>          <small>Feb 4, 2026</small>             <a href="https://github.com/anomalyco/opentui/pull/676">opentui#676</a>            <small>Feb 16, 2026</small>             <a href="https://github.com/anomalyco/opentui/pull/699">opentui#699</a>            <small>Feb 23, 2026</small>             <a href="https://github.com/RhysSullivan/fastergh/pull/4">fastergh#4</a>              <small>Mar 9, 2026</small>             <a href="https://github.com/anomalyco/opentui/pull/850">opentui#850</a>             <small>Apr 6, 2026</small>             <a href="https://github.com/anomalyco/opentui/pull/927">opentui#927</a>
