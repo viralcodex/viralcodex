@@ -1,5 +1,4 @@
 import fs from "fs/promises";
-import fetch from "node-fetch";
 
 const USERNAME = "viralcodex";
 const README_PATH = "./README.md";
@@ -94,66 +93,115 @@ function formatTimelineLabel(pr) {
   return `${compactRepoName}#${prNumber}`;
 }
 
-function formatMergedDate(pr) {
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    year: "numeric",
-  }).format(new Date(pr.mergedAt));
-}
-
-function escapeHtml(value) {
-  return value
+function escapeHtml(text) {
+  return text
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
 }
 
-function renderCell(content) {
-  return `    <td align="center">${content}</td>`;
+function centerStart(totalWidth, position, textLength) {
+  return Math.max(
+    0,
+    Math.min(totalWidth - textLength, position - Math.floor(textLength / 2))
+  );
 }
 
-function buildLinkedTimeline(prs) {
-  const topRow = [];
-  const axisRow = [];
-  const bottomRow = [];
+function placeText(row, start, text) {
+  for (let offset = 0; offset < text.length; offset++) {
+    row[start + offset] = text[offset];
+  }
+}
+
+function renderMarkupRow(row, items) {
+  let line = row.join("").replace(/\s+$/, "");
+
+  for (const item of [...items].sort((a, b) => b.start - a.start)) {
+    line =
+      line.slice(0, item.start) +
+      item.html +
+      line.slice(item.start + item.text.length);
+  }
+
+  return line;
+}
+
+function buildTimeline(prs) {
+  const labels = prs.map(formatTimelineLabel);
+  const dates = prs.map(formatMergedDate);
+  const longestText = Math.max(
+    0,
+    ...labels.map((label) => label.length),
+    ...dates.map((date) => date.length)
+  );
+  const segmentWidth = Math.max(longestText + 6, 18);
+  const leadWidth = Math.floor(segmentWidth / 2);
+  const totalWidth = leadWidth * 2 + segmentWidth * Math.max(prs.length - 1, 0);
+
+  const topDateRow = Array(totalWidth).fill(" ");
+  const topRow = Array(totalWidth).fill(" ");
+  const axisRow = Array(totalWidth).fill("-");
+  const bottomRow = Array(totalWidth).fill(" ");
+  const bottomDateRow = Array(totalWidth).fill(" ");
+
+  const topDateItems = [];
+  const topItems = [];
+  const bottomItems = [];
+  const bottomDateItems = [];
 
   prs.forEach((pr, index) => {
-    const label = escapeHtml(formatTimelineLabel(pr));
-    const mergedDate = escapeHtml(formatMergedDate(pr));
-    const href = escapeHtml(pr.url);
-    const linkedLabel = `<a href="${href}">${label}</a>`;
+    const label = labels[index];
+    const date = dates[index];
+    const position = leadWidth + index * segmentWidth;
+    const labelStart = centerStart(totalWidth, position, label.length);
+    const dateStart = centerStart(totalWidth, position, date.length);
+
+    axisRow[position] = "|";
 
     if (index % 2 === 0) {
-      topRow.push(renderCell(`<sub>${mergedDate}</sub><br>${linkedLabel}`));
-      bottomRow.push(renderCell("&nbsp;"));
+      placeText(topDateRow, dateStart, date);
+      placeText(topRow, labelStart, label);
+      topDateItems.push({
+        start: dateStart,
+        text: date,
+        html: `<sub>${escapeHtml(date)}</sub>`,
+      });
+      topItems.push({
+        start: labelStart,
+        text: label,
+        html: `<a href="${pr.url}">${escapeHtml(label)}</a>`,
+      });
     } else {
-      topRow.push(renderCell("&nbsp;"));
-      bottomRow.push(renderCell(`${linkedLabel}<br><sub>${mergedDate}</sub>`));
-    }
-
-    axisRow.push(renderCell("<code>------|------</code>"));
-
-    if (index < prs.length - 1) {
-      topRow.push(renderCell("&nbsp;"));
-      axisRow.push(renderCell("<code>--------------</code>"));
-      bottomRow.push(renderCell("&nbsp;"));
+      placeText(bottomRow, labelStart, label);
+      placeText(bottomDateRow, dateStart, date);
+      bottomItems.push({
+        start: labelStart,
+        text: label,
+        html: `<a href="${pr.url}">${escapeHtml(label)}</a>`,
+      });
+      bottomDateItems.push({
+        start: dateStart,
+        text: date,
+        html: `<sub>${escapeHtml(date)}</sub>`,
+      });
     }
   });
 
   return [
-    "<table>",
-    "  <tr>",
-    ...topRow,
-    "  </tr>",
-    "  <tr>",
-    ...axisRow,
-    "  </tr>",
-    "  <tr>",
-    ...bottomRow,
-    "  </tr>",
-    "</table>",
+    renderMarkupRow(topDateRow, topDateItems),
+    renderMarkupRow(topRow, topItems),
+    axisRow.join("").replace(/\s+$/, ""),
+    renderMarkupRow(bottomRow, bottomItems),
+    renderMarkupRow(bottomDateRow, bottomDateItems),
   ].join("\n");
+}
+
+function formatMergedDate(pr) {
+  return new Intl.DateTimeFormat("en", {
+    month: "short",
+    year: "numeric",
+  }).format(new Date(pr.mergedAt));
 }
 
 function generateTimelineMarkdown(prs) {
@@ -164,11 +212,13 @@ function generateTimelineMarkdown(prs) {
   const timelinePrs = [...prs].sort(
     (a, b) => new Date(a.mergedAt) - new Date(b.mergedAt)
   );
-
+  const timeline = buildTimeline(timelinePrs);
   return [
     "Scroll horizontally to read the merged PR timeline from left to right.",
     "",
-    buildLinkedTimeline(timelinePrs),
+    "<pre>",
+    timeline,
+    "</pre>",
   ].join("\n");
 }
 
