@@ -35,7 +35,7 @@ async function fetchPullRequests() {
 
   while (collected.length < MAX_PRS) {
     const res = await fetch(
-      `https://api.github.com/search/issues?q=type:pr+author:${USERNAME}+is:public&per_page=${perPage}&page=${page}`,
+      `https://api.github.com/search/issues?q=type:pr+author:${USERNAME}+is:public+is:merged&sort=updated&order=desc&per_page=${perPage}&page=${page}`,
       {
         headers: {
           Accept: "application/vnd.github+json",
@@ -64,22 +64,14 @@ async function fetchPullRequests() {
 
       const details = await fetchPRDetails(pr);
       if (!details) continue;
-
-      let status;
-      if (details.merged_at) {
-        status = "Merged";
-      } else if (details.state === "closed") {
-        continue;
-      } else {
-        status = "Open";
-      }
+      if (!details.merged_at) continue;
 
       collected.push({
         title: pr.title,
         url: pr.html_url,
         repo: repoUrl,
         repoName,
-        status,
+        mergedAt: details.merged_at,
         updatedAt: pr.updated_at,
       });
 
@@ -89,35 +81,83 @@ async function fetchPullRequests() {
     page++;
   }
 
-  // Sort: merged → open → closed, then recent first
-  const priority = { Merged: 0, Open: 1, Closed: 2 };
-
-  collected.sort((a, b) => {
-    if (priority[a.status] !== priority[b.status]) {
-      return priority[a.status] - priority[b.status];
-    }
-    return new Date(b.updatedAt) - new Date(a.updatedAt);
-  });
+  collected.sort((a, b) => new Date(b.mergedAt) - new Date(a.mergedAt));
 
   return collected.slice(0, MAX_PRS);
 }
 
-function generateTable(prs) {
+function formatTimelineLabel(pr) {
+  const prNumber = pr.url.match(/\/pull\/(\d+)/)?.[1] ?? "?";
+  const compactRepoName =
+    pr.repoName.length > 14 ? `${pr.repoName.slice(0, 11)}...` : pr.repoName;
+
+  return `${compactRepoName}#${prNumber}`;
+}
+
+function buildTimeline(prs) {
+  const labels = prs.map(formatTimelineLabel);
+  const longestLabel = Math.max(0, ...labels.map((label) => label.length));
+  const segmentWidth = Math.max(longestLabel + 6, 18);
+  const leadWidth = Math.floor(segmentWidth / 2);
+  const totalWidth = leadWidth * 2 + segmentWidth * Math.max(prs.length - 1, 0);
+
+  const topRow = Array(totalWidth).fill(" ");
+  const axisRow = Array(totalWidth).fill("-");
+  const bottomRow = Array(totalWidth).fill(" ");
+
+  labels.forEach((label, index) => {
+    const position = leadWidth + index * segmentWidth;
+    const targetRow = index % 2 === 0 ? topRow : bottomRow;
+    const start = Math.max(
+      0,
+      Math.min(totalWidth - label.length, position - Math.floor(label.length / 2))
+    );
+
+    axisRow[position] = "|";
+
+    for (let offset = 0; offset < label.length; offset++) {
+      targetRow[start + offset] = label[offset];
+    }
+  });
+
+  return [topRow, axisRow, bottomRow]
+    .map((row) => row.join("").replace(/\s+$/, ""))
+    .join("\n");
+}
+
+function formatMergedDate(pr) {
+  return new Intl.DateTimeFormat("en", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(pr.mergedAt));
+}
+
+function generateTimelineMarkdown(prs) {
   if (prs.length === 0) {
-    return "No recent external PRs found.";
+    return "No recent merged external PRs found.";
   }
 
-  const header =
-    "| Repository | Title | Status |\n|------------|-------|--------|";
-
-  const rows = prs
+  const timelinePrs = [...prs].sort(
+    (a, b) => new Date(a.mergedAt) - new Date(b.mergedAt)
+  );
+  const timeline = buildTimeline(timelinePrs);
+  const linkedEntries = timelinePrs
     .map(
       (pr) =>
-        `| [${pr.repoName}](${pr.repo}) | [${pr.title}](${pr.url}) | \`${pr.status}\` |`
+        `- [${formatTimelineLabel(pr)}](${pr.url}) in [${pr.repoName}](${pr.repo}) - ${pr.title} (${formatMergedDate(pr)})`
     )
     .join("\n");
 
-  return `${header}\n${rows}`;
+  return [
+    "Scroll horizontally to read the merged PR timeline from left to right.",
+    "",
+    "```text",
+    timeline,
+    "```",
+    "",
+    linkedEntries,
+  ].join("\n");
 }
 
 function updateReadme(content, section) {
@@ -139,13 +179,13 @@ function updateReadme(content, section) {
 
 async function main() {
   const prs = await fetchPullRequests();
-  const table = generateTable(prs);
+  const section = generateTimelineMarkdown(prs);
 
   const readme = await fs.readFile(README_PATH, "utf8");
-  const updated = updateReadme(readme, table);
+  const updated = updateReadme(readme, section);
 
   await fs.writeFile(README_PATH, updated);
-  console.log("README updated with merged/open/closed PRs");
+  console.log("README updated with merged PR timeline");
 }
 
 main().catch((err) => {
