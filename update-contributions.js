@@ -194,6 +194,7 @@ function buildTimeline(prs) {
 function formatMergedDate(pr) {
   return new Intl.DateTimeFormat("en", {
     month: "short",
+    day: "numeric",
     year: "numeric",
   }).format(new Date(pr.mergedAt));
 }
