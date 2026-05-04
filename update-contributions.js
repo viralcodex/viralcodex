@@ -94,43 +94,66 @@ function formatTimelineLabel(pr) {
   return `${compactRepoName}#${prNumber}`;
 }
 
-function buildTimeline(prs) {
-  const labels = prs.map(formatTimelineLabel);
-  const longestLabel = Math.max(0, ...labels.map((label) => label.length));
-  const segmentWidth = Math.max(longestLabel + 6, 18);
-  const leadWidth = Math.floor(segmentWidth / 2);
-  const totalWidth = leadWidth * 2 + segmentWidth * Math.max(prs.length - 1, 0);
-
-  const topRow = Array(totalWidth).fill(" ");
-  const axisRow = Array(totalWidth).fill("-");
-  const bottomRow = Array(totalWidth).fill(" ");
-
-  labels.forEach((label, index) => {
-    const position = leadWidth + index * segmentWidth;
-    const targetRow = index % 2 === 0 ? topRow : bottomRow;
-    const start = Math.max(
-      0,
-      Math.min(totalWidth - label.length, position - Math.floor(label.length / 2))
-    );
-
-    axisRow[position] = "|";
-
-    for (let offset = 0; offset < label.length; offset++) {
-      targetRow[start + offset] = label[offset];
-    }
-  });
-
-  return [topRow, axisRow, bottomRow]
-    .map((row) => row.join("").replace(/\s+$/, ""))
-    .join("\n");
-}
-
 function formatMergedDate(pr) {
   return new Intl.DateTimeFormat("en", {
     month: "short",
-    day: "numeric",
     year: "numeric",
   }).format(new Date(pr.mergedAt));
+}
+
+function escapeHtml(value) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function renderCell(content) {
+  return `    <td align="center">${content}</td>`;
+}
+
+function buildLinkedTimeline(prs) {
+  const topRow = [];
+  const axisRow = [];
+  const bottomRow = [];
+
+  prs.forEach((pr, index) => {
+    const label = escapeHtml(formatTimelineLabel(pr));
+    const mergedDate = escapeHtml(formatMergedDate(pr));
+    const href = escapeHtml(pr.url);
+    const linkedLabel = `<a href="${href}">${label}</a>`;
+
+    if (index % 2 === 0) {
+      topRow.push(renderCell(`<sub>${mergedDate}</sub><br>${linkedLabel}`));
+      bottomRow.push(renderCell("&nbsp;"));
+    } else {
+      topRow.push(renderCell("&nbsp;"));
+      bottomRow.push(renderCell(`${linkedLabel}<br><sub>${mergedDate}</sub>`));
+    }
+
+    axisRow.push(renderCell("<code>------|------</code>"));
+
+    if (index < prs.length - 1) {
+      topRow.push(renderCell("&nbsp;"));
+      axisRow.push(renderCell("<code>--------------</code>"));
+      bottomRow.push(renderCell("&nbsp;"));
+    }
+  });
+
+  return [
+    "<table>",
+    "  <tr>",
+    ...topRow,
+    "  </tr>",
+    "  <tr>",
+    ...axisRow,
+    "  </tr>",
+    "  <tr>",
+    ...bottomRow,
+    "  </tr>",
+    "</table>",
+  ].join("\n");
 }
 
 function generateTimelineMarkdown(prs) {
@@ -141,22 +164,11 @@ function generateTimelineMarkdown(prs) {
   const timelinePrs = [...prs].sort(
     (a, b) => new Date(a.mergedAt) - new Date(b.mergedAt)
   );
-  const timeline = buildTimeline(timelinePrs);
-  const linkedEntries = timelinePrs
-    .map(
-      (pr) =>
-        `- [${formatTimelineLabel(pr)}](${pr.url}) in [${pr.repoName}](${pr.repo}) - ${pr.title} (${formatMergedDate(pr)})`
-    )
-    .join("\n");
 
   return [
     "Scroll horizontally to read the merged PR timeline from left to right.",
     "",
-    "```text",
-    timeline,
-    "```",
-    "",
-    linkedEntries,
+    buildLinkedTimeline(timelinePrs),
   ].join("\n");
 }
 
