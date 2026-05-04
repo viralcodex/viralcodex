@@ -139,15 +139,11 @@ function buildTimeline(prs) {
   const leadWidth = Math.floor(segmentWidth / 2);
   const totalWidth = leadWidth * 2 + segmentWidth * Math.max(prs.length - 1, 0);
 
-  const topLabelRow = Array(totalWidth).fill(" ");
-  const topDateRow = Array(totalWidth).fill(" ");
+  const topRow = Array(totalWidth).fill(" ");
   const axisRow = Array(totalWidth).fill("-");
-  const bottomDateRow = Array(totalWidth).fill(" ");
-  const bottomLabelRow = Array(totalWidth).fill(" ");
+  const bottomRow = Array(totalWidth).fill(" ");
 
   const topItems = [];
-  const topDateItems = [];
-  const bottomDateItems = [];
   const bottomItems = [];
 
   prs.forEach((pr, index) => {
@@ -155,27 +151,27 @@ function buildTimeline(prs) {
     const date = dates[index];
     const position = leadWidth + index * segmentWidth;
     const labelStart = centerStart(totalWidth, position, label.length);
-    const dateStart = labelStart + Math.max(0, Math.floor((label.length - date.length) / 2));
+    const dateStart = centerStart(totalWidth, position, date.length);
 
     axisRow[position] = "|";
 
     if (index % 2 === 0) {
-      placeText(topLabelRow, labelStart, label);
-      placeText(topDateRow, dateStart, date);
+      placeText(topRow, labelStart, label);
+      placeText(bottomRow, dateStart, date);
       topItems.push({
         start: labelStart,
         text: label,
         html: `<a href="${pr.url}">${escapeHtml(label)}</a>`,
       });
-      topDateItems.push({
+      bottomItems.push({
         start: dateStart,
         text: date,
         html: `<small>${escapeHtml(date)}</small>`,
       });
     } else {
-      placeText(bottomDateRow, dateStart, date);
-      placeText(bottomLabelRow, labelStart, label);
-      bottomDateItems.push({
+      placeText(topRow, dateStart, date);
+      placeText(bottomRow, labelStart, label);
+      topItems.push({
         start: dateStart,
         text: date,
         html: `<small>${escapeHtml(date)}</small>`,
@@ -189,11 +185,9 @@ function buildTimeline(prs) {
   });
 
   return [
-    renderMarkupRow(topLabelRow, topItems),
-    renderMarkupRow(topDateRow, topDateItems),
+    renderMarkupRow(topRow, topItems),
     axisRow.join("").replace(/\s+$/, ""),
-    renderMarkupRow(bottomDateRow, bottomDateItems),
-    renderMarkupRow(bottomLabelRow, bottomItems),
+    renderMarkupRow(bottomRow, bottomItems),
   ].join("\n");
 }
 
