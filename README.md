@@ -1,8 +1,6 @@
 ## My Open Source Contributions
 <!--START_SECTION:external_prs-->
-
-Scroll horizontally to read the merged PR timeline from left to right.
-
+A timeline for all the PRs that I contributed till now (I love OSS)
 <pre>
     <a href="https://github.com/IAmTomShaw/f1-race-replay/pull/68">f1-race-replay#68</a>         <small>Dec 18, 2025</small>          <a href="https://github.com/IAmTomShaw/f1-race-replay/pull/94">f1-race-replay#94</a>         <small>Jan 16, 2026</small>             <a href="https://github.com/anomalyco/opentui/pull/619">opentui#619</a>            <small>Feb 16, 2026</small>             <a href="https://github.com/anomalyco/opentui/pull/690">opentui#690</a>            <small>Feb 18, 2026</small>             <a href="https://github.com/RhysSullivan/fastergh/pull/7">fastergh#7</a>             <small>Feb 23, 2026</small>             <a href="https://github.com/anomalyco/opentui/pull/742">opentui#742</a>            <small>Mar 22, 2026</small>             <a href="https://github.com/anomalyco/opentui/pull/920">opentui#920</a>             <small>Apr 6, 2026</small>            <a href="https://github.com/anomalyco/opentui/pull/1020">opentui#1020</a>
 ------------|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|-----------
