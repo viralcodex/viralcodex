@@ -1,7 +1,7 @@
 ## My Open Source Contributions
 <!--START_SECTION:external_prs-->
 
-Scroll horizontally to read the merged PR timeline from left to right.
+Scroll horizontally for all the PRs.
 
 <pre>
    <a href="https://github.com/IAmTomShaw/f1-race-replay/pull/117">f1-race-replay#117</a>          <small>Feb 4, 2026</small>             <a href="https://github.com/anomalyco/opentui/pull/676">opentui#676</a>            <small>Feb 16, 2026</small>             <a href="https://github.com/anomalyco/opentui/pull/699">opentui#699</a>            <small>Feb 23, 2026</small>             <a href="https://github.com/RhysSullivan/fastergh/pull/4">fastergh#4</a>              <small>Mar 9, 2026</small>             <a href="https://github.com/anomalyco/opentui/pull/850">opentui#850</a>             <small>Apr 5, 2026</small>             <a href="https://github.com/anomalyco/opentui/pull/927">opentui#927</a>             <small>May 5, 2026</small>            <a href="https://github.com/anomalyco/opentui/pull/1017">opentui#1017</a>            <small>May 18, 2026</small>            <a href="https://github.com/anomalyco/opentui/pull/1093">opentui#1093</a>
